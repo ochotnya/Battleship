@@ -20,11 +20,11 @@ namespace Battleship
         {
             InitializeComponent();
             DrawBoard();
-            PlaceBoat(5);
-            PlaceBoat(4);
-            PlaceBoat(3);
-            PlaceBoat(3);
-            PlaceBoat(2);
+            PlaceBoat(5, Color.Black);
+            PlaceBoat(4, Color.DarkGreen);
+            PlaceBoat(3, Color.DarkOrange);
+            PlaceBoat(3, Color.Brown);
+            PlaceBoat(2, Color.Navy);
         }
 
         private void DrawBoard()
@@ -73,7 +73,7 @@ namespace Battleship
             }
             return true;
         }
-        private void PlaceBoat(int size)
+        private void PlaceBoat(int size, Color boatColor)
         {
             
             bool orientation = randomGenerator.Next(2) == 0; //0 - horizontal, 1 - vertical
@@ -101,7 +101,7 @@ namespace Battleship
             for (int i = 0; i < size; i++)
             {
                 tempField = GetField(X, Y);
-                tempField.SetBoat();
+                tempField.SetBoat(boatColor);
                 if (orientation) Y++;
                 else X++;
             }

@@ -28,10 +28,10 @@ namespace Battleship
             labelCoords.Text = Y + X.ToString();
         }
 
-        public void SetBoat()
+        public void SetBoat(Color boatColor)
         {
             state = FieldState.Boat;
-            this.BackColor = Color.DarkGray;
+            this.BackColor = boatColor;
             this.ForeColor = Color.White;
         }
 
