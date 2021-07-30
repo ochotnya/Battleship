@@ -20,8 +20,8 @@ namespace Battleship
                 dgvPlayer1Map.Rows.Add();
                 dgvPlayer1Map.Rows[dgvPlayer1Map.Rows.Count - 1].HeaderCell.Value = c;
             }
-            dgvPlayer1Map.RowHeadersWidth = 40;
-            dgvPlayer1Map.RowTemplate.Height = 40;
+            dgvPlayer1Map.RowHeadersWidth = 45;
+            dgvPlayer1Map.RowTemplate.Height = 45;
         }
     }
 }
