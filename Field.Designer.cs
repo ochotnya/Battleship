@@ -1,14 +1,14 @@
 ﻿
 namespace Battleship
 {
-    partial class Form1
+    partial class Field
     {
-        /// <summary>
+        /// <summary> 
         /// Wymagana zmienna projektanta.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Wyczyść wszystkie używane zasoby.
         /// </summary>
         /// <param name="disposing">prawda, jeżeli zarządzane zasoby powinny zostać zlikwidowane; Fałsz w przeciwnym wypadku.</param>
@@ -21,40 +21,42 @@ namespace Battleship
             base.Dispose(disposing);
         }
 
-        #region Kod generowany przez Projektanta formularzy systemu Windows
+        #region Kod wygenerowany przez Projektanta składników
 
-        /// <summary>
-        /// Metoda wymagana do obsługi projektanta — nie należy modyfikować
+        /// <summary> 
+        /// Metoda wymagana do obsługi projektanta — nie należy modyfikować 
         /// jej zawartości w edytorze kodu.
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelBoards = new System.Windows.Forms.Panel();
+            this.labelCoords = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // panelBoards
+            // labelCoords
             // 
-            this.panelBoards.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelBoards.Location = new System.Drawing.Point(0, 0);
-            this.panelBoards.Name = "panelBoards";
-            this.panelBoards.Size = new System.Drawing.Size(956, 603);
-            this.panelBoards.TabIndex = 0;
+            this.labelCoords.AutoSize = true;
+            this.labelCoords.Location = new System.Drawing.Point(8, 13);
+            this.labelCoords.Name = "labelCoords";
+            this.labelCoords.Size = new System.Drawing.Size(20, 13);
+            this.labelCoords.TabIndex = 0;
+            this.labelCoords.Text = "A0";
+            this.labelCoords.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Form1
+            // Field
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(956, 671);
-            this.Controls.Add(this.panelBoards);
-            this.Name = "Form1";
-            this.Text = "Battleship Menu";
+            this.BackColor = System.Drawing.Color.Lime;
+            this.Controls.Add(this.labelCoords);
+            this.Name = "Field";
+            this.Size = new System.Drawing.Size(40, 40);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panelBoards;
+        private System.Windows.Forms.Label labelCoords;
     }
 }
-

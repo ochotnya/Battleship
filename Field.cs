@@ -10,12 +10,21 @@ using System.Windows.Forms;
 
 namespace Battleship
 {
-    public partial class Form1 : Form
+    public partial class Field : UserControl
     {
-        public Form1()
+        private char Y;
+        private int X;
+        public Field(int x, char y)
         {
             InitializeComponent();
-            panelBoards.Controls.Add(new PlayerBoard());
+            SetCoords(x, y);
+        }
+
+        public void SetCoords(int x, char y)
+        {
+            Y = y;
+            X = x;
+            labelCoords.Text = Y + X.ToString();
         }
     }
 }

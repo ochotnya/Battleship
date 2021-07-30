@@ -1,14 +1,14 @@
 ﻿
 namespace Battleship
 {
-    partial class Form1
+    partial class PlayerBoard
     {
-        /// <summary>
+        /// <summary> 
         /// Wymagana zmienna projektanta.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Wyczyść wszystkie używane zasoby.
         /// </summary>
         /// <param name="disposing">prawda, jeżeli zarządzane zasoby powinny zostać zlikwidowane; Fałsz w przeciwnym wypadku.</param>
@@ -21,40 +21,39 @@ namespace Battleship
             base.Dispose(disposing);
         }
 
-        #region Kod generowany przez Projektanta formularzy systemu Windows
+        #region Kod wygenerowany przez Projektanta składników
 
-        /// <summary>
-        /// Metoda wymagana do obsługi projektanta — nie należy modyfikować
+        /// <summary> 
+        /// Metoda wymagana do obsługi projektanta — nie należy modyfikować 
         /// jej zawartości w edytorze kodu.
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelBoards = new System.Windows.Forms.Panel();
+            this.panelMain = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
-            // panelBoards
+            // panelMain
             // 
-            this.panelBoards.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelBoards.Location = new System.Drawing.Point(0, 0);
-            this.panelBoards.Name = "panelBoards";
-            this.panelBoards.Size = new System.Drawing.Size(956, 603);
-            this.panelBoards.TabIndex = 0;
+            this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelMain.Location = new System.Drawing.Point(0, 0);
+            this.panelMain.Name = "panelMain";
+            this.panelMain.Size = new System.Drawing.Size(402, 347);
+            this.panelMain.TabIndex = 0;
             // 
-            // Form1
+            // PlayerBoard
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(956, 671);
-            this.Controls.Add(this.panelBoards);
-            this.Name = "Form1";
-            this.Text = "Battleship Menu";
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.Controls.Add(this.panelMain);
+            this.Name = "PlayerBoard";
+            this.Size = new System.Drawing.Size(402, 347);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Panel panelBoards;
+        private System.Windows.Forms.Panel panelMain;
     }
 }
-
