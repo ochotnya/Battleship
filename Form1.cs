@@ -17,6 +17,11 @@ namespace Battleship
             InitializeComponent();
             panelBoards.Controls.Add(new PlayerBoard());
         }
+
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+
+        }
     }
     public enum FieldState
     {

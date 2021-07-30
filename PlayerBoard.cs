@@ -15,13 +15,16 @@ namespace Battleship
         private int spaceBetweenFields = 5;
         private int fieldHeight = 40;
         private int fieldWidth = 40;
+        private Random randomGenerator = new Random();
         public PlayerBoard()
         {
             InitializeComponent();
             DrawBoard();
             PlaceBoat(5);
-            PlaceBoat(2);
+            PlaceBoat(4);
             PlaceBoat(3);
+            PlaceBoat(3);
+            PlaceBoat(2);
         }
 
         private void DrawBoard()
@@ -52,7 +55,6 @@ namespace Battleship
         private Field GetField(int X, char Y)
         {
             ControlCollection fieldList = panelMain.Controls;
-            Field result = new Field(X,Y);
             foreach (Field field in fieldList)
             {
                 if (field.X == X && field.Y == Y) return field;
@@ -73,8 +75,8 @@ namespace Battleship
         }
         private void PlaceBoat(int size)
         {
-            Random randomGenerator = new Random();
-            bool orientation = Convert.ToBoolean(randomGenerator.Next(0, 1)); //0 - horizontal, 1 - vertical
+            
+            bool orientation = randomGenerator.Next(2) == 0; //0 - horizontal, 1 - vertical
             char maxY='J';
             int maxX=9;
 

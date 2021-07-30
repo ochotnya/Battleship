@@ -30,6 +30,7 @@ namespace Battleship
         private void InitializeComponent()
         {
             this.panelBoards = new System.Windows.Forms.Panel();
+            this.btnRefresh = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // panelBoards
@@ -40,11 +41,22 @@ namespace Battleship
             this.panelBoards.Size = new System.Drawing.Size(956, 603);
             this.panelBoards.TabIndex = 0;
             // 
+            // btnRefresh
+            // 
+            this.btnRefresh.Location = new System.Drawing.Point(236, 609);
+            this.btnRefresh.Name = "btnRefresh";
+            this.btnRefresh.Size = new System.Drawing.Size(131, 42);
+            this.btnRefresh.TabIndex = 1;
+            this.btnRefresh.Text = "New positions";
+            this.btnRefresh.UseVisualStyleBackColor = true;
+            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(956, 671);
+            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.panelBoards);
             this.Name = "Form1";
             this.Text = "Battleship Menu";
@@ -55,6 +67,7 @@ namespace Battleship
         #endregion
 
         private System.Windows.Forms.Panel panelBoards;
+        private System.Windows.Forms.Button btnRefresh;
     }
 }
 
