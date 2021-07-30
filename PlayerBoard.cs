@@ -12,9 +12,11 @@ namespace Battleship
 {
     public partial class PlayerBoard : UserControl
     {
+        //board parameters
         private int spaceBetweenFields = 5;
         private int fieldHeight = 40;
         private int fieldWidth = 40;
+
         private Random randomGenerator = new Random();
         public PlayerBoard()
         {
@@ -52,6 +54,7 @@ namespace Battleship
             this.Height = (spaceBetweenFields + fieldHeight) * 10 + spaceBetweenFields;
         }
 
+        //returns field with specified coordinates
         private Field GetField(int X, char Y)
         {
             ControlCollection fieldList = panelMain.Controls;
@@ -84,7 +87,7 @@ namespace Battleship
             if(orientation) maxY = Convert.ToChar(Convert.ToInt32('J') - size);
             else maxX = 9 - size;
 
-            //find and check if field is available
+            //check if boat can be placed using generated loacion and orientation.
             char Y = 'A';
             int X = 0;
             bool stopChecking = false;
@@ -106,6 +109,16 @@ namespace Battleship
                 else X++;
             }
 
+        }
+
+        public bool CheckHit(int X, char Y) //true - hit, false - miss
+        {
+            ControlCollection fieldList = panelMain.Controls;
+            foreach (Field field in fieldList)
+            {
+                if (field.X == X && field.Y == Y && field.isBoat()) return true;
+            }
+            return false;
         }
         
     }

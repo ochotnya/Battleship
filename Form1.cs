@@ -12,6 +12,7 @@ namespace Battleship
 {
     public partial class Form1 : Form
     {
+        private Random randomGenerator = new Random();
         public Form1()
         {
             InitializeComponent();
@@ -31,6 +32,18 @@ namespace Battleship
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             RefreshBoards();
+        }
+
+        private void Fire(PlayerBoard target)
+        {
+            //generate location
+            char Y = Convert.ToChar(randomGenerator.Next(Convert.ToInt32('A'), Convert.ToInt32('K')));
+            int X = randomGenerator.Next(0, 10);
+            target.CheckHit(X, Y);
+        }
+        private void btnP1Fire_Click(object sender, EventArgs e)
+        {
+            Fire((PlayerBoard)panelBoards.Controls[0]);
         }
     }
     public enum FieldState

@@ -40,5 +40,19 @@ namespace Battleship
             return state == FieldState.Free;
         }
 
+        public bool isBoat()
+        {
+            if (state == FieldState.Boat)
+            {
+                this.BackColor = Color.Red;
+                return true;
+            }
+            else
+            {
+                this.BackColor = Color.White;
+                return false;
+            }
+        }
+
     }
 }
