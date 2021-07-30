@@ -13,6 +13,8 @@ namespace Battleship
     public partial class Form1 : Form
     {
         private Random randomGenerator = new Random();
+        Player player1 = new Player();
+        Player player2 = new Player();
         public Form1()
         {
             InitializeComponent();
@@ -31,19 +33,15 @@ namespace Battleship
         }
         private void btnRefresh_Click(object sender, EventArgs e)
         {
+            player1.Reset();
+            player2.Reset();
             RefreshBoards();
         }
-
-        private void Fire(PlayerBoard target)
-        {
-            //generate location
-            char Y = Convert.ToChar(randomGenerator.Next(Convert.ToInt32('A'), Convert.ToInt32('K')));
-            int X = randomGenerator.Next(0, 10);
-            target.CheckHit(X, Y);
-        }
+        
+        
         private void btnP1Fire_Click(object sender, EventArgs e)
         {
-            Fire((PlayerBoard)panelBoards.Controls[0]);
+            player1.Shot((PlayerBoard)panelBoards.Controls[1]);
         }
     }
     public enum FieldState
@@ -51,6 +49,12 @@ namespace Battleship
         Free,
         Boat,
         Hit
+    }
+    public struct FieldData
+    {
+        public char Y;
+        public int X;
+        public FieldState state;
     }
 
 }

@@ -55,15 +55,7 @@ namespace Battleship
         }
 
         //returns field with specified coordinates
-        private Field GetField(int X, char Y)
-        {
-            ControlCollection fieldList = panelMain.Controls;
-            foreach (Field field in fieldList)
-            {
-                if (field.X == X && field.Y == Y) return field;
-            }
-            return null;
-        }
+        
 
         private bool CheckIfBoatFits(int size, int X, char Y, bool orientation)
         {
@@ -76,6 +68,16 @@ namespace Battleship
             }
             return true;
         }
+
+        private Field GetField(int x, char y)
+        {
+            foreach (Field field in panelMain.Controls)
+            {
+                if (field.X == x && field.Y == y) return field;
+            }
+            return null;
+        }
+
         private void PlaceBoat(int size, Color boatColor)
         {
             
