@@ -18,4 +18,11 @@ namespace Battleship
             panelBoards.Controls.Add(new PlayerBoard());
         }
     }
+    public enum FieldState
+    {
+        Free,
+        Boat,
+        Hit
+    }
+
 }

@@ -12,8 +12,9 @@ namespace Battleship
 {
     public partial class Field : UserControl
     {
-        private char Y;
-        private int X;
+        public char Y { get; private set; }
+        public int X { get; private set; }
+        private FieldState state = FieldState.Free;
         public Field(int x, char y)
         {
             InitializeComponent();
@@ -26,5 +27,18 @@ namespace Battleship
             X = x;
             labelCoords.Text = Y + X.ToString();
         }
+
+        public void SetBoat()
+        {
+            state = FieldState.Boat;
+            this.BackColor = Color.DarkGray;
+            this.ForeColor = Color.White;
+        }
+
+        public bool isFree()
+        {
+            return state == FieldState.Free;
+        }
+
     }
 }
