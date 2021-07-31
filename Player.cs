@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows.Forms;
 namespace Battleship
 {
     public class Player
@@ -39,6 +39,12 @@ namespace Battleship
             FieldData target = GenerateNewTarget();
             while(checkIfTargetsUsed(target))
             {
+                //check if all possibilities has been tried
+                if (usedTargets.Count==targetBoard.Controls[0].Controls.Count) 
+                {
+                    MessageBox.Show("Sorry, I tried everything");
+                    return;
+                }
                 target = GenerateNewTarget();
             }
             Fire(targetBoard, target);
