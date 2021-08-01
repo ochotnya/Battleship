@@ -18,6 +18,8 @@ namespace Battleship
         public Form1()
         {
             InitializeComponent();
+            player1.Reset();
+            player2.Reset();
             RefreshBoards();
         }
 
@@ -41,7 +43,14 @@ namespace Battleship
         
         private void btnP1Fire_Click(object sender, EventArgs e)
         {
-            player1.Shot((PlayerBoard)panelBoards.Controls[1]);
+            timer.Enabled = true;
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            FieldData target = player1.Shot((PlayerBoard)panelBoards.Controls[1]);
+            richTextBox1.Text += target.X.ToString() + target.Y + "\n";
+            if (player1.RemainingMoves() == 0) timer.Enabled = false;
         }
     }
     public enum FieldState

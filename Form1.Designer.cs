@@ -29,10 +29,14 @@ namespace Battleship
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panelBoards = new System.Windows.Forms.Panel();
             this.btnRefresh = new System.Windows.Forms.Button();
             this.btnP1Fire = new System.Windows.Forms.Button();
             this.btnP2Fire = new System.Windows.Forms.Button();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // panelBoards
@@ -72,11 +76,35 @@ namespace Battleship
             this.btnP2Fire.Text = "Player 2 Fire";
             this.btnP2Fire.UseVisualStyleBackColor = true;
             // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(12, 673);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(109, 138);
+            this.richTextBox1.TabIndex = 4;
+            this.richTextBox1.Text = "";
+            // 
+            // timer
+            // 
+            this.timer.Interval = 50;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(214, 705);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(35, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "label1";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(956, 671);
+            this.ClientSize = new System.Drawing.Size(956, 823);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.btnP2Fire);
             this.Controls.Add(this.btnP1Fire);
             this.Controls.Add(this.btnRefresh);
@@ -84,6 +112,7 @@ namespace Battleship
             this.Name = "Form1";
             this.Text = "Battleship Menu";
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -93,6 +122,9 @@ namespace Battleship
         private System.Windows.Forms.Button btnRefresh;
         private System.Windows.Forms.Button btnP1Fire;
         private System.Windows.Forms.Button btnP2Fire;
+        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.Label label1;
     }
 }
 
