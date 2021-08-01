@@ -157,10 +157,10 @@ namespace Battleship
                     if (!availableMoves.Contains(newTarget)) newTarget = PickNearTarget(attackCenter, 'S');
                     if (!availableMoves.Contains(newTarget))
                     {
+                        newTarget = availableMoves.ElementAt(randomGenerator.Next(0, availableMoves.Count));
                         targetOrientation = Orientation.Undefined;
                         attackCenter.X = -1;
                     }
-
                 }
                 else if (targetOrientation == Orientation.Horizontal)
                 {
@@ -190,7 +190,6 @@ namespace Battleship
                 newTarget = availableMoves.ElementAt(randomGenerator.Next(0, availableMoves.Count));
             }
             availableMoves.Remove(newTarget);
-            
             return newTarget;
         }
     }
