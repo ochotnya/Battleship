@@ -9,13 +9,11 @@ namespace Battleship
     public class Player
     {
         private Random randomGenerator = new Random();
-        private bool attackingBoat = false;
         private Orientation targetOrientation=Orientation.Undefined; //0 - horizontal, 1 - vertical, 2 - undefined
         private List<FieldData> usedTargets = new List<FieldData>();
         private List<FieldData> availableMoves = new List<FieldData>();
         private FieldData attackCenter = new FieldData();
-        public int score = 0;
-        private int maxScore = 20;
+        private int score = 0;
 
         private enum Orientation
         {
@@ -26,19 +24,19 @@ namespace Battleship
         public void Reset()
         {
             usedTargets.Clear();
-            attackingBoat = false;
-            score = 0;
-            maxScore = 20;
             GenerateMovesList();
+            score = 0;          
             attackCenter.X = -1;
         }
-        public void SetMaxScore(int max)
+
+        public int GetScore()
         {
-            maxScore = max;
+            return score;
         }
 
         private void GenerateMovesList()
         {
+            availableMoves.Clear();
             for (char i = 'A'; i < 'K'; i++)
             {
                 for (int k = 0; k < 10; k++)
@@ -50,22 +48,28 @@ namespace Battleship
                 }
             }
         }
+
+        public int GetMovesCount()
+        {
+            return usedTargets.Count();
+        }
+
+
         private void Fire(PlayerBoard targetBoard, FieldData targetField)
         {
             if (targetBoard.CheckHit(targetField.X, targetField.Y))
             {
                 targetField.state = FieldState.Hit;
                 score++;
-                attackingBoat = true;
                 attackCenter = targetField;
             }
             else
             {
                 targetField.state = FieldState.Free;
-                attackingBoat = false;
             }
             usedTargets.Add(targetField);
         }
+
 
         public FieldData Shot(PlayerBoard targetBoard)
         {
@@ -113,7 +117,6 @@ namespace Battleship
                     break;
             }
 
-            //dirList.Remove(direction);
             return newTarget;
         }
 

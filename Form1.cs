@@ -11,10 +11,11 @@ using System.Windows.Forms;
 namespace Battleship
 {
     public partial class Form1 : Form
-    {
-        private Random randomGenerator = new Random();
+    {        
         Player player1 = new Player();
         Player player2 = new Player();
+        private int maxScore = 17;
+        private int turn = 1;
         public Form1()
         {
             InitializeComponent();
@@ -39,18 +40,34 @@ namespace Battleship
             player2.Reset();
             RefreshBoards();
         }
-        
-        
-        private void btnP1Fire_Click(object sender, EventArgs e)
-        {
-            timer.Enabled = true;
-        }
 
+        private void UpdateStatusBox(string text)
+        {
+            statusBox.Text += text;
+            statusBox.SelectionStart = statusBox.Text.Length;
+            statusBox.ScrollToCaret();
+        }
+        
+        //change active player and execute game logic
         private void timer_Tick(object sender, EventArgs e)
         {
-            FieldData target = player1.Shot((PlayerBoard)panelBoards.Controls[1]);
-            richTextBox1.Text += target.X.ToString() + target.Y + "\n";
-            if (player1.RemainingMoves() == 0) timer.Enabled = false;
+            Player activePlayer = turn == 1 ? player1 : player2;
+            PlayerBoard targetBoard = turn == 1 ? (PlayerBoard)panelBoards.Controls[1] : (PlayerBoard)panelBoards.Controls[0];
+            FieldData target = activePlayer.Shot(targetBoard);
+            UpdateStatusBox("Player " + turn.ToString() +" fires at " + target.Y + target.X.ToString() + "\n");
+            
+            if (activePlayer.RemainingMoves() == 0) timer.Enabled = false;
+            if(activePlayer.GetScore() == maxScore)
+            {
+                UpdateStatusBox("Player " + turn.ToString() + " wins in " + activePlayer.GetMovesCount().ToString() + " moves" + "\n");
+                timer.Enabled = false;
+            }
+            turn = turn == 1 ? 2 : 1;
+        }
+
+        private void btnStart_Click(object sender, EventArgs e)
+        {
+            timer.Enabled = true;
         }
     }
     public enum FieldState
