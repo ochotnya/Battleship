@@ -54,9 +54,6 @@ namespace Battleship
             this.Height = (spaceBetweenFields + fieldHeight) * 10 + spaceBetweenFields;
         }
 
-        //returns field with specified coordinates
-        
-
         private bool CheckIfBoatFits(int size, int X, char Y, bool orientation)
         {
             for (int i = 0; i < size; i++)

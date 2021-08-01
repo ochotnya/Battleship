@@ -8,13 +8,17 @@ namespace Battleship
 {
     public class Player
     {
-        private Random randomGenerator = new Random();
+        private Random randomGenerator;
         private Orientation targetOrientation=Orientation.Undefined; //0 - horizontal, 1 - vertical, 2 - undefined
         private List<FieldData> usedTargets = new List<FieldData>();
         private List<FieldData> availableMoves = new List<FieldData>();
-        private FieldData attackCenter = new FieldData();
+        private FieldData attackCenter = new FieldData(); //first field that has boat. Player will look around this field for next hit to determine target orientation
         private int score = 0;
 
+        public Player(Random gen)
+        {
+            randomGenerator = gen;
+        }
         private enum Orientation
         {
             Horizontal,
@@ -27,6 +31,7 @@ namespace Battleship
             GenerateMovesList();
             score = 0;          
             attackCenter.X = -1;
+            targetOrientation = Orientation.Undefined;
         }
 
         public int GetScore()
@@ -61,11 +66,16 @@ namespace Battleship
             {
                 targetField.state = FieldState.Hit;
                 score++;
-                attackCenter = targetField;
+                if(attackCenter.X == -1) attackCenter = targetField; //if this is the first hit in the series, save this field as attack center, to focus around it in next move
             }
-            else
+            else //if player miss and already got target orientation, it means he reach to the end of the target boat and can reset orientation and attack center
             {
                 targetField.state = FieldState.Free;
+                if (targetOrientation != Orientation.Undefined)
+                {
+                    targetOrientation = Orientation.Undefined;
+                    attackCenter.X = -1;
+                }
             }
             usedTargets.Add(targetField);
         }
@@ -129,23 +139,50 @@ namespace Battleship
             {
                 if (targetOrientation == Orientation.Undefined)
                 {
-                    if (targetCount>1 && usedTargets.ElementAt(targetCount - 1).state == FieldState.Hit && usedTargets.ElementAt(targetCount - 2).state == FieldState.Hit)
+                    if (targetCount > 1 && usedTargets.ElementAt(targetCount - 1).state == FieldState.Hit && usedTargets.ElementAt(targetCount - 1) != attackCenter)
                     {
                         //check coordiantes of last two targets to define boat orientation
-                        if (usedTargets.ElementAt(targetCount - 1).X == usedTargets.ElementAt(targetCount - 2).X) targetOrientation = Orientation.Horizontal;
-                        if (usedTargets.ElementAt(targetCount - 1).Y == usedTargets.ElementAt(targetCount - 2).Y) targetOrientation = Orientation.Vertical;
+                        if (usedTargets.ElementAt(targetCount - 1).X == attackCenter.X) targetOrientation = Orientation.Vertical;
+                        else if (usedTargets.ElementAt(targetCount - 1).Y == attackCenter.Y) targetOrientation = Orientation.Horizontal;
+                        else targetOrientation = Orientation.Undefined;
                     }
                 }
 
                 //generate target near attackCenter based on orientation. If none of this moves is available, generate random target
-                if(targetOrientation != Orientation.Horizontal) newTarget = PickNearTarget(attackCenter, 'N');
-                if (!availableMoves.Contains(newTarget) || targetOrientation != Orientation.Vertical) newTarget = PickNearTarget(attackCenter, 'E');
-                if (!availableMoves.Contains(newTarget) || targetOrientation != Orientation.Vertical) newTarget = PickNearTarget(attackCenter, 'W');
-                if (!availableMoves.Contains(newTarget) || targetOrientation != Orientation.Horizontal) newTarget = PickNearTarget(attackCenter, 'S');
-                if (!availableMoves.Contains(newTarget))
+                if (targetOrientation == Orientation.Undefined)
                 {
-                    newTarget = availableMoves.ElementAt(randomGenerator.Next(0, availableMoves.Count));
-                    attackCenter.X = -1; 
+                    newTarget = PickNearTarget(attackCenter, 'N');
+                    if (!availableMoves.Contains(newTarget)) newTarget = PickNearTarget(attackCenter, 'E');
+                    if (!availableMoves.Contains(newTarget)) newTarget = PickNearTarget(attackCenter, 'W');
+                    if (!availableMoves.Contains(newTarget)) newTarget = PickNearTarget(attackCenter, 'S');
+                    if (!availableMoves.Contains(newTarget))
+                    {
+                        targetOrientation = Orientation.Undefined;
+                        attackCenter.X = -1;
+                    }
+
+                }
+                else if (targetOrientation == Orientation.Horizontal)
+                {
+                    newTarget = PickNearTarget(usedTargets.ElementAt(targetCount - 1), 'E');
+                    if (!availableMoves.Contains(newTarget)) newTarget = PickNearTarget(usedTargets.ElementAt(targetCount - 1), 'W');
+                    if (!availableMoves.Contains(newTarget))
+                    {
+                        newTarget = availableMoves.ElementAt(randomGenerator.Next(0, availableMoves.Count));
+                        targetOrientation = Orientation.Undefined;
+                        attackCenter.X = -1;
+                    }
+                }
+                else if (targetOrientation == Orientation.Vertical)
+                {
+                    newTarget = PickNearTarget(usedTargets.ElementAt(targetCount - 1), 'N');
+                    if (!availableMoves.Contains(newTarget)) newTarget = PickNearTarget(usedTargets.ElementAt(targetCount - 1), 'S');
+                    if (!availableMoves.Contains(newTarget))
+                    {
+                        newTarget = availableMoves.ElementAt(randomGenerator.Next(0, availableMoves.Count));
+                        targetOrientation = Orientation.Undefined;
+                        attackCenter.X = -1;
+                    }
                 }
             }
             else

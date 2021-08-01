@@ -11,16 +11,17 @@ using System.Windows.Forms;
 namespace Battleship
 {
     public partial class Form1 : Form
-    {        
-        Player player1 = new Player();
-        Player player2 = new Player();
+    {
+        private Random randomGenerator = new Random();
+        Player player1;
+        Player player2;
         private int maxScore = 17;
         private int turn = 1;
         public Form1()
         {
             InitializeComponent();
-            player1.Reset();
-            player2.Reset();
+            player1 = new Player(randomGenerator);
+            player2 = new Player(randomGenerator);
             RefreshBoards();
         }
 
@@ -33,12 +34,14 @@ namespace Battleship
             board2.Location = new Point(board1.Location.X + board1.Width + 20, 5);
             panelBoards.Controls.Add(board1);
             panelBoards.Controls.Add(board2);
-        }
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
             player1.Reset();
             player2.Reset();
+        }
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {            
             RefreshBoards();
+            btnManual.Enabled = true;
+            btnStart.Enabled = true;
         }
 
         private void UpdateStatusBox(string text)
@@ -48,7 +51,7 @@ namespace Battleship
             statusBox.ScrollToCaret();
         }
         
-        //change active player and execute game logic
+        //set active player, execute game logic and switch player for next round
         private void timer_Tick(object sender, EventArgs e)
         {
             Player activePlayer = turn == 1 ? player1 : player2;
@@ -56,18 +59,29 @@ namespace Battleship
             FieldData target = activePlayer.Shot(targetBoard);
             UpdateStatusBox("Player " + turn.ToString() +" fires at " + target.Y + target.X.ToString() + "\n");
             
-            if (activePlayer.RemainingMoves() == 0) timer.Enabled = false;
+            if (activePlayer.RemainingMoves() == 0) timer.Enabled = false; 
             if(activePlayer.GetScore() == maxScore)
             {
                 UpdateStatusBox("Player " + turn.ToString() + " wins in " + activePlayer.GetMovesCount().ToString() + " moves" + "\n");
                 timer.Enabled = false;
+                btnRefresh.Enabled = true;
             }
             turn = turn == 1 ? 2 : 1;
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            btnRefresh.Enabled = false;
+            btnStart.Enabled = false;
+            btnManual.Enabled = false;
             timer.Enabled = true;
+        }
+
+
+        private void btnManual_Click(object sender, EventArgs e)
+        {
+            player1.Shot((PlayerBoard)panelBoards.Controls[1]);
+            btnStart.Enabled = false;
         }
     }
     public enum FieldState
@@ -81,6 +95,15 @@ namespace Battleship
         public char Y;
         public int X;
         public FieldState state;
+        public static bool operator ==(FieldData c1, FieldData c2)
+        {
+            return c1.Equals(c2);
+        }
+
+        public static bool operator !=(FieldData c1, FieldData c2)
+        {
+            return !c1.Equals(c2);
+        }
     }
 
 }
